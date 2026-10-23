@@ -74,7 +74,7 @@ async function sendConfirmation(appointment: any) {
 
   await ses.send(
     new SendEmailCommand({
-      FromEmailAddress: Resource.Sender.sender,
+      FromEmailAddress: Resource.EmailSender.sender,
       Destination: { ToAddresses: [appointment.email] },
       Content: {
         Simple: {

@@ -1,5 +1,5 @@
 ## Variables
-@apiUrl = https://dz0ytjm099.execute-api.us-east-1.amazonaws.com
+@apiUrl = https://3ihwya392a.execute-api.us-east-1.amazonaws.com
 
 ### Checkar saúde da API
 GET {{apiUrl}}/health

@@ -5,7 +5,7 @@ import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { Resource } from "sst";
 import { z } from "zod";
 import { PublishCommand, SNSClient } from "@aws-sdk/client-sns";
-import { json } from '../../util/http';
+import { json } from '../../utils/http';
 
 const schema = z.object({
   customer: z.string().trim().min(1),

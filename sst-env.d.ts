@@ -26,14 +26,14 @@ declare module "sst" {
       "type": "sst.aws.Queue"
       "url": string
     }
-    "NotificationsTable": {
-      "name": string
-      "type": "sst.aws.Dynamo"
-    }
-    "Sender": {
+    "EmailSender": {
       "configSet": string
       "sender": string
       "type": "sst.aws.Email"
+    }
+    "NotificationsTable": {
+      "name": string
+      "type": "sst.aws.Dynamo"
     }
   }
 }
