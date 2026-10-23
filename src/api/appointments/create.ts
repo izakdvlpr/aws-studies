@@ -1,5 +1,3 @@
-/// <reference path="../../../sst-env.d.ts" />
-
 import { randomUUID } from "node:crypto";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
@@ -7,10 +5,12 @@ import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { Resource } from "sst";
 import { z } from "zod";
 import { PublishCommand, SNSClient } from "@aws-sdk/client-sns";
+import { json } from '../../util/http';
 
 const schema = z.object({
-  client: z.string().trim().min(1),
-  service: z.enum(["corte", "barba", "combo"]),
+  customer: z.string().trim().min(1),
+  email: z.email(),
+  service: z.enum(["haircut", "beard", "combo"]),
   scheduledAt: z.iso.datetime({ offset: true })
 })
 
@@ -21,11 +21,7 @@ export const handler: APIGatewayProxyHandlerV2 = async ({ body }) => {
   const result = schema.safeParse(JSON.parse(body ?? '{}'))
   
   if (!result.success) {
-    return {
-      statusCode: 400,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: z.flattenError(result.error).fieldErrors, }),
-    }
+    return json(400, { error: z.flattenError(result.error).fieldErrors });
   }
   
   const data = result.data
@@ -59,9 +55,5 @@ export const handler: APIGatewayProxyHandlerV2 = async ({ body }) => {
     })
   );
   
-  return {
-    statusCode: 200,
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ appointment }),
-  }
+  return json(201, { appointment });
 }

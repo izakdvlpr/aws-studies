@@ -1,5 +1,5 @@
 ## Variables
-@apiUrl = https://qm94xdxtmd.execute-api.us-east-1.amazonaws.com
+@apiUrl = https://dz0ytjm099.execute-api.us-east-1.amazonaws.com
 
 ### Checkar saúde da API
 GET {{apiUrl}}/health
@@ -9,9 +9,10 @@ POST {{apiUrl}}/appointments
 Content-Type: application/json
 
 {
-  "client": "Isaque Lima",
+  "customer": "Isaque Lima Oliveira",
+  "email": "isaquelimaoliveira@pm.me",
   "service": "combo",
-  "scheduledAt": "2026-10-22T14:00:00-03:00"
+  "scheduledAt": "2026-10-23T14:00:00-03:00"
 }
 
 ### Obter agendamentos

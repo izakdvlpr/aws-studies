@@ -6,12 +6,8 @@
 
 declare module "sst" {
   export interface Resource {
-    "AppointmentsApi": {
+    "Api": {
       "type": "sst.aws.ApiGatewayV2"
-      "url": string
-    }
-    "AppointmentsQueue": {
-      "type": "sst.aws.Queue"
       "url": string
     }
     "AppointmentsTable": {
@@ -21,6 +17,23 @@ declare module "sst" {
     "AppointmentsTopic": {
       "arn": string
       "type": "sst.aws.SnsTopic"
+    }
+    "EmailDeadLetterQueue": {
+      "type": "sst.aws.Queue"
+      "url": string
+    }
+    "EmailQueue": {
+      "type": "sst.aws.Queue"
+      "url": string
+    }
+    "NotificationsTable": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
+    "Sender": {
+      "configSet": string
+      "sender": string
+      "type": "sst.aws.Email"
     }
   }
 }
