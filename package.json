@@ -12,10 +12,12 @@
   "type": "commonjs",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.1155.0",
+    "@aws-sdk/client-scheduler": "^3.1156.0",
     "@aws-sdk/client-sesv2": "^3.1156.0",
     "@aws-sdk/client-sns": "^3.1156.0",
     "@aws-sdk/lib-dynamodb": "^3.1155.0",
     "@types/aws-lambda": "^8.10.164",
+    "dayjs": "^1.11.23",
     "sst": "^4.17.2",
     "zod": "^4.6.7"
   }

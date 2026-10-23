@@ -10,6 +10,7 @@ import { json } from '../../utils/http';
 const schema = z.object({
   customer: z.string().trim().min(1),
   email: z.email(),
+  phone: z.string().regex(/^\+[1-9]\d{7,14}$/),
   service: z.enum(["haircut", "beard", "combo"]),
   scheduledAt: z.iso.datetime({ offset: true })
 })

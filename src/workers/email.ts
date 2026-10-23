@@ -1,15 +1,9 @@
 import type { SQSBatchItemFailure, SQSHandler } from "aws-lambda";
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import {
-  DeleteCommand,
-  DynamoDBDocumentClient,
-  PutCommand,
-} from "@aws-sdk/lib-dynamodb";
 import { Resource } from "sst";
+import { markAsSent, releaseReservation, reserveDelivery } from "../utils/delivery";
 
 const ses = new SESv2Client({});
-const db = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
 const serviceNames: Record<string, string> = {
   haircut: "Corte",
@@ -30,42 +24,6 @@ const escapeHtml = (text: string) =>
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
-
-async function reserveDelivery(key: string): Promise<boolean> {
-  try {
-    await db.send(
-      new PutCommand({
-        TableName: Resource.NotificationsTable.name,
-        Item: { id: key, status: "sending", createdAt: new Date().toISOString() },
-        ConditionExpression: "attribute_not_exists(id)",
-      })
-    );
-    
-    return true;
-  } catch (err) {
-    if ((err as Error).name === "ConditionalCheckFailedException") return false;
-    
-    throw err;
-  }
-}
-
-async function releaseReservation(key: string) {
-  await db.send(
-    new DeleteCommand({
-      TableName: Resource.NotificationsTable.name,
-      Key: { id: key },
-    })
-  );
-}
-
-async function markAsSent(key: string) {
-  await db.send(
-    new PutCommand({
-      TableName: Resource.NotificationsTable.name,
-      Item: { id: key, status: "sent", sentAt: new Date().toISOString() },
-    })
-  );
-}
 
 async function sendConfirmation(appointment: any) {
   const customer = escapeHtml(appointment.customer);

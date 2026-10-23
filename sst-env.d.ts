@@ -35,6 +35,18 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Dynamo"
     }
+    "SchedulerQueue": {
+      "type": "sst.aws.Queue"
+      "url": string
+    }
+    "SmsDeadLetterQueue": {
+      "type": "sst.aws.Queue"
+      "url": string
+    }
+    "SmsQueue": {
+      "type": "sst.aws.Queue"
+      "url": string
+    }
   }
 }
 

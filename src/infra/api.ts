@@ -14,3 +14,8 @@ api.route("GET /appointments", {
   handler: "src/api/appointments/list.handler",
   link: [appointmentsTable],
 });
+
+api.route("POST /appointments/{id}/cancel", {
+  handler: "src/api/appointments/cancel.handler",
+  link: [appointmentsTable, appointmentsTopic],
+});

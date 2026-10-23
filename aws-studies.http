@@ -11,9 +11,13 @@ Content-Type: application/json
 {
   "customer": "Isaque Lima Oliveira",
   "email": "isaquelimaoliveira@pm.me",
+  "phone": "+5531998604008",
   "service": "combo",
   "scheduledAt": "2026-10-23T14:00:00-03:00"
 }
 
 ### Obter agendamentos
 GET {{apiUrl}}/appointments
+### Cancelar agendamento
+@appointmentId = 00000000-0000-0000-0000-000000000000
+POST {{apiUrl}}/appointments/{{appointmentId}}/cancel
